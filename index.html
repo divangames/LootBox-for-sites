@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Горизонтальная рулетка</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+ <!-- Подключение шрифта Montserrat с Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/messages.css">
+	<!-- <link rel="stylesheet" href="css/styles.css"> -->
+</head>
+<body>
+<style>
+
+/* Стили для body */
+body {
+    font-family: 'Montserrat', sans-serif; /* Использование шрифта Montserrat */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow: hidden;
+            background: linear-gradient(135deg, #2f4358, #1f1c1f, #15181f); /* Градиент с тремя цветами */
+            background-size: 400% 400%; /* Размер градиента для анимации */
+            animation: gradientAnimation 10s ease infinite; /* Анимация градиента */
+
+}
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+.dela-gothic-one-regular {
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Стиль хейдера */
+        header {
+            width: 100%;
+			opacity: 70%;
+            background-color: #151a23;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header img {
+            height: 50px;
+            vertical-align: middle;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+            display: inline;
+        }
+		
+		
+
+        @keyframes bgAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: -500px -500px; /* Регулируйте значение для настройки направления */
+            }
+        }
+
+        #roulette-container {
+            position: relative;
+            width: 800px; /* Полная ширина экрана */
+            max-width: 800px; /* Ограничение максимальной ширины */
+            height: 200px;
+            overflow: hidden;
+            margin: 20px auto; /* Центровка по горизонтали */
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 22px; /* Ширина стрелки */
+            height: 202px; /* Высота стрелки */
+            z-index: 10;
+			  filter: drop-shadow(0 0 5px red);
+				overflow: visible;
+        }
+
+        .highlight {
+            stroke: green;
+            stroke-width: 5;
+            vector-effect: non-scaling-stroke; /* Обводка остаётся стабильной при масштабировании */
+        }
+		
+/* Стили для кнопки */
+        button {
+            padding: 20px 50px;
+			font-family: 'Montserrat', sans-serif; /* Использование шрифта Montserrat */
+            font-size: 16px;
+            background-color: #ff4c4c; /* Красный цвет */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: skewX(-20deg);
+            transition: left 0.5s;
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -75%;
+            }
+            100% {
+                left: 125%;
+            }
+        }
+
+        button:hover {
+            background-color: #33cc66; /* Зеленый ховер*/
+        }
+		
+		
+/* Стили для footer */
+        footer {
+            width: 100%;
+            background-color: #151a23;
+			opacity: 70%;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-weight: 300;
+            position: absolute;
+            bottom: 0;
+        }
+
+        footer a {
+            color: #42526f;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+	    
+</style>
+    <header>
+        <a href="https://хасл.рф" target="_blank"> <img src="img/logo.svg" alt="Logo"></a>
+    </header>
+	
+	        <h2 style="color: #fff;"><b>ЛУТБОКС ОТ ХАСЛ.РФ</b></h2>
+
+    <div id="roulette-container">
+        <img class="pointer" src="img/arrow2.svg" alt="Pointer">
+    </div>
+    <button id="spin-button">Крутить рулетку!</button>
+	
+    <footer>
+     <a href="https://белаякоробка.рф/" target="_blank"><h5>Whitecube</h5></a> <br> <h6><span id="current-date"></span></h6>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
