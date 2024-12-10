@@ -68,13 +68,14 @@ body {
                 background-position: -500px -500px; /* Регулируйте значение для настройки направления */
             }
         }
+		
 /* Настройка ячейки рулетки */
         #roulette-container {
             position: relative;
             width: 1200px; /* Полная ширина экрана */
             max-width: 1200px; /* Ограничение максимальной ширины */
             height: 300px;
-            overflow: hidden;
+            overflow: hiden;
 			align-items: center; /* Центрируем по вертикали */
             margin: 50px auto; /* Центровка по горизонтали */
 			box-sizing: border-box; /* Учитываем границы и отступы */
@@ -107,9 +108,9 @@ body {
 		
 /* Стили для кнопки */
         button {
-            padding: 20px 50px;
+            padding: 30px 90px;
 			font-family: 'Montserrat', sans-serif; /* Использование шрифта Montserrat */
-            font-size: 16px;
+            font-size: 24px;
             background-color: #ff4c4c; /* Красный цвет */
             color: white;
             border: none;
@@ -168,6 +169,14 @@ body {
         footer a:hover {
             text-decoration: underline;
         }
+		
+/* Добавляем эффект увеличения */
+.zoom {
+    transform: scale(1.2); /* Увеличение на 20% */
+    transition: transform 0.3s ease-in-out;
+}
+
+
 	    
 </style>
     <header>
@@ -179,7 +188,7 @@ body {
     <div id="roulette-container">
         <img class="pointer" src="img/arrow2.svg" alt="Pointer">
     </div>
-    <button id="spin-button">Крутить рулетку!</button>
+    <button id="spin-button">КРУТИТЬ СПИННЕР</button>
 	
     <footer>
      <a href="https://белаякоробка.рф/" target="_blank"><h5>Whitecube</h5></a> <br> <h6><span id="current-date"></span></h6>

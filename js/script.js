@@ -1,5 +1,5 @@
 const svgNS = "http://www.w3.org/2000/svg";
-const containerWidth = 1200; // Можно оставить, чтобы использовать для расчета
+const containerWidth = 1200; // Ширина контейнера
 const containerHeight = 300;
 
 // Список призов
@@ -14,20 +14,19 @@ const prizes = [
     "img/prise_08.png"
 ];
 
-// Шансы на выпадение (настраивается)
+// Шансы на выпадение (настраиваемые веса)
 const prizeWeights = [10, 20, 5, 15, 10, 5, 25, 10]; // Вес для каждого приза
 
-// Список распределённых карточек
+// Список распределенных карточек
 const distributedPrizes = [];
 
-
-
-// Сообщения для каждого приза
+// Функция для получения сообщения для каждого приза
 function getPrizeMessage(index) {
     const rootStyles = getComputedStyle(document.documentElement);
     return rootStyles.getPropertyValue(`--prize-message-${index + 1}`).trim();
 }
 
+// Создание SVG контейнера
 const svg = document.createElementNS(svgNS, "svg");
 svg.setAttribute("width", prizes.length * containerWidth);
 svg.setAttribute("height", containerHeight);
@@ -36,7 +35,7 @@ document.getElementById("roulette-container").appendChild(svg);
 const prizeWidth = containerWidth / 3; // Ширина одной ячейки
 const prizeElements = [];
 
-// Бесконечный ряд призов
+// Создание бесконечного ряда призов
 for (let i = 0; i < prizes.length * 3; i++) {
     const prizeIndex = i % prizes.length;
 
@@ -53,6 +52,7 @@ for (let i = 0; i < prizes.length * 3; i++) {
     prizeElements.push(group);
 }
 
+// Функция для расчета выигрыша
 function calculateWinner() {
     const totalWeight = prizeWeights.reduce((sum, weight) => sum + weight, 0);
     const randomValue = Math.random() * totalWeight;
@@ -66,16 +66,18 @@ function calculateWinner() {
     }
 }
 
-const spinDuration = 6; // Время прокрутки рулетки в секундах (настройка для кастомизации)
+// Параметры для вращения рулетки
+const spinDuration = 6; // Время прокрутки в секундах
+let offset = 0; // Начальный оффсет для автоспина
+let autoSpinId; // Идентификатор анимации автоспина
 
+// Функция для запуска вращения рулетки
 function spinRoulette() {
-    stopAutoSpin(); // Останавливаем автоспин
+    stopAutoSpin(); // Остановить автоспин
 
     const winnerIndex = calculateWinner();
-
     const randomOffset = Math.random() * (prizeWidth / 2) - (prizeWidth / 4);
     const winnerPosition = (prizes.length + winnerIndex) * prizeWidth + randomOffset;
-
     const offsetFromCenter = (containerWidth / 2) - (prizeWidth / 2);
     const translateX = winnerPosition - offsetFromCenter;
 
@@ -85,37 +87,28 @@ function spinRoulette() {
     setTimeout(() => {
         prizeElements.forEach(el => el.classList.remove('highlight'));
 
-        const winningElementIndex = (prizes.length + winnerIndex) % distributedPrizes.length;
-        const prizeIndex = distributedPrizes[winningElementIndex]; // Получаем индекс из распределения
-
+        const winningElementIndex = (prizes.length + winnerIndex) % prizeElements.length;
         prizeElements[winningElementIndex].classList.add('highlight');
 
-        const message = getPrizeMessage(prizeIndex); // Используем правильный индекс для сообщения
-        alert(message); // Отобразить сообщение
-    }, spinDuration * 1000); // Ожидание завершения анимации
+        // Показ сообщения о выигрыше
+        const message = getPrizeMessage(winnerIndex);
+        alert(message);
+    }, spinDuration * 1000);
 }
 
+// Функция для остановки автоспина
+function stopAutoSpin() {
+    cancelAnimationFrame(autoSpinId);
+}
 
-document.getElementById("spin-button").addEventListener("click", () => {
-    svg.style.transition = "none";
-    svg.style.transform = "translateX(0)";
-
-    setTimeout(spinRoulette, 100);
-});
-
-// Установка текущей даты в подвале
-document.getElementById("current-date").textContent = new Date().toLocaleDateString();
-
-// Настройка вращения рулетки
-const spinSpeed = 0.35; // Скорость вращения (пикселей за кадр)
-let offset = 0; // Начальный оффсет для автоспина
-let autoSpinId; // Идентификатор анимации автоспина
-
-// Функция для медленного вращения рулетки
+// Функция для бесконечного автоспина
 function autoSpin() {
-    offset += spinSpeed; // Увеличиваем смещение
-    svg.style.transform = `translateX(-${offset}px)`; // Сдвигаем SVG влево
-    autoSpinId = requestAnimationFrame(autoSpin); // Постоянное вращение
+    offset += 1; // Увеличиваем смещение
+    if (offset >= prizeWidth * prizes.length) {
+        offset = 0; // Сбрасываем смещение, чтобы было бесконечное движение
+    }
+    svg.style.transform = `translateX(-${offset}px)`;
+    autoSpinId = requestAnimationFrame(autoSpin); // Запускаем следующий кадр
 }
 
 // Запуск автоспина при загрузке страницы
@@ -123,25 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
     autoSpin();
 });
 
-// Функция для остановки автоспина перед запуском пользовательского вращения
-function stopAutoSpin() {
-    cancelAnimationFrame(autoSpinId); // Останавливаем автоспин
-}
+// Обработчик нажатия на кнопку spin
+document.getElementById("spin-button").addEventListener("click", () => {
+    svg.style.transition = "none";
+    svg.style.transform = `translateX(-${offset}px)`; // Устанавливаем текущую позицию
+    setTimeout(spinRoulette, 100);
+});
 
-// Бесконечный ряд призов
-for (let i = 0; i < prizes.length * 3; i++) {
-    const prizeIndex = calculateWinner(); // Рандомный индекс с учётом весов
-    distributedPrizes.push(prizeIndex); // Сохраняем индекс
-
-    const image = document.createElementNS(svgNS, "image");
-    image.setAttribute("href", prizes[prizeIndex]);
-    image.setAttribute("x", i * prizeWidth);
-    image.setAttribute("y", 0);
-    image.setAttribute("width", prizeWidth);
-    image.setAttribute("height", containerHeight);
-
-    const group = document.createElementNS(svgNS, "g");
-    group.appendChild(image);
-    svg.appendChild(group);
-    prizeElements.push(group);
-}
+// Установка текущей даты в подвале
+document.getElementById("current-date").textContent = new Date().toLocaleDateString();
