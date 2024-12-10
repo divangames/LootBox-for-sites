@@ -54,6 +54,8 @@ const prizes = [
 ``` javascript
 const prizeWeights = [10, 20, 5, 15, 10, 5, 25, 10];
 ```
+![image](https://github.com/user-attachments/assets/ccbc7fb3-a9fc-457a-b968-3c5392794bc3)
+
 ### Шаг 3: Инициализация и запуск рулетки
 При загрузке страницы создается SVG-элемент, который заполняется изображениями призов. Вручную можно запустить вращение рулетки, нажав на кнопку с ID spin-button.
 
