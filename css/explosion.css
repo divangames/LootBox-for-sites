@@ -1,0 +1,26 @@
+.explosion-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Эмодзи не мешают взаимодействию */
+}
+
+.explosion {
+    position: absolute;
+    font-size: 2rem;
+    animation: explode 1s forwards;
+    pointer-events: none; /* Чтобы эмодзи не мешали кликам */
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}

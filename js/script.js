@@ -74,7 +74,7 @@ let autoSpinId; // Идентификатор анимации автоспин�
 // Функция для запуска вращения рулетки
 function spinRoulette() {
     stopAutoSpin(); // Остановить автоспин
-
+    console.log("Spinning roulette...");
     const winnerIndex = calculateWinner();
     const randomOffset = Math.random() * (prizeWidth / 2) - (prizeWidth / 4);
     const winnerPosition = (prizes.length + winnerIndex) * prizeWidth + randomOffset;
@@ -85,7 +85,10 @@ function spinRoulette() {
     svg.style.transform = `translateX(-${translateX}px)`;
 
     setTimeout(() => {
+        console.log("Roulette spin completed.");
         prizeElements.forEach(el => el.classList.remove('highlight'));
+		
+		
 
         const winningElementIndex = (prizes.length + winnerIndex) % prizeElements.length;
         prizeElements[winningElementIndex].classList.add('highlight');
@@ -94,6 +97,14 @@ function spinRoulette() {
         const message = getPrizeMessage(winnerIndex);
         alert(message);
     }, spinDuration * 1000);
+	
+	        // Обновляем сообщение о выигрыше в элементе
+        const winMessageElement = document.getElementById("win-message");
+        if (winMessageElement) {
+            winMessageElement.textContent = `Вы выиграли: ${message}`;
+        }
+	
+	
 }
 
 // Функция для остановки автоспина
@@ -103,7 +114,7 @@ function stopAutoSpin() {
 
 // Функция для бесконечного автоспина
 function autoSpin() {
-    offset += 1; // Увеличиваем смещение
+    offset += 0.35; // Увеличиваем смещение
     if (offset >= prizeWidth * prizes.length) {
         offset = 0; // Сбрасываем смещение, чтобы было бесконечное движение
     }

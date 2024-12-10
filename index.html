@@ -8,9 +8,13 @@
  <!-- Подключение шрифта Montserrat с Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/messages.css">
+	<link rel="stylesheet" href="css/explosion.css">
+	<link rel="stylesheet" href="css/snow.css">
 	<!-- <link rel="stylesheet" href="css/styles.css"> -->
 </head>
 <body>
+
+
 <style>
 
 /* Стили для body */
@@ -93,8 +97,8 @@ body {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 22px; /* Ширина стрелки */
-            height: 300px; /* Высота стрелки */
+            width: 23.5px; /* Ширина стрелки */
+            height: 400px; /* Высота стрелки */
             z-index: 10;
 			  filter: drop-shadow(0 0 5px red);
 				overflow: visible;
@@ -170,10 +174,12 @@ body {
             text-decoration: underline;
         }
 		
-/* Добавляем эффект увеличения */
-.zoom {
-    transform: scale(1.2); /* Увеличение на 20% */
-    transition: transform 0.3s ease-in-out;
+/* Ссообщение о победе */		
+	#win-message {
+    font-size: 20px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
 }
 
 
@@ -184,16 +190,24 @@ body {
     </header>
 	
 	        <h2 style="color: #fff;"><b>ЛУТБОКС ОТ ХАСЛ.РФ</b></h2>
-
+			
+			
     <div id="roulette-container">
-        <img class="pointer" src="img/arrow2.svg" alt="Pointer">
+    <img class="pointer" src="img/arrow2.svg" alt="Pointer">
     </div>
-    <button id="spin-button">КРУТИТЬ СПИННЕР</button>
+<div id="snow-container"></div>
+<button id="spin-button">КРУТИТЬ СПИННЕР</button>
+<div id="win-message"></div>
+
 	
     <footer>
      <a href="https://белаякоробка.рф/" target="_blank"><h5>Whitecube</h5></a> <br> <h6><span id="current-date"></span></h6>
     </footer>
 
     <script src="js/script.js"></script>
+	<script src="js/snow.js"></script>
 </body>
 </html>
+
+
+

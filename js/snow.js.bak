@@ -1,0 +1,24 @@
+function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄️"; // Эмодзи снега
+
+    // Устанавливаем случайное начальное положение
+    const startX = Math.random() * window.innerWidth;
+    snowflake.style.left = `${startX}px`;
+
+    // Случайная скорость падения
+    const fallDuration = Math.random() * 5 + 5; // От 5 до 10 секунд
+    snowflake.style.animationDuration = `${fallDuration}s`;
+
+    // Добавляем снежинку в тело документа
+    document.body.appendChild(snowflake);
+
+    // Удаляем снежинку после завершения анимации
+    setTimeout(() => {
+        snowflake.remove();
+    }, fallDuration * 1000);
+}
+
+// Генерируем снежинки каждую 100 мс
+setInterval(createSnowflake, 100);
