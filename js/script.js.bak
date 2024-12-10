@@ -189,10 +189,3 @@ document.getElementById('popup-form').addEventListener('submit', function (event
 document.getElementById('popup-close').addEventListener('click', function () {
     document.getElementById('popup').classList.add('hidden');
 });
-
-document.getElementById('popup-close').addEventListener('click', function () {
-    const popup = document.getElementById('popup');
-    if (popup) {
-        popup.classList.add('hidden');
-    }
-});

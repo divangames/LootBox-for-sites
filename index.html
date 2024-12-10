@@ -34,11 +34,33 @@
 
 <!-- Кнопка -->	
 	<button id="spin-button">КРУТИТЬ СПИННЕР</button>
-	<div id="win-message"></div>
+    <div id="win-message"></div>
+    <div id="snow-container"></div>
 <!-- Кнопка -->	
-	
+
+
+<!-- Поп-апп -->	
+<div id="popup" class="hidden">
+    <h1 style="color: #fff;">О-хо-хо! Ты выбил:</h1>
+    <img id="prize-image" alt="Выигранный приз" />
+    <p id="win-message"></p>
+    <form id="popup-form">
+	<p style="color: #fff;">Осталось всего пару шагов, чтобы отдать тебе твой подарок</P>
+        <label for="name" style="color: #fff;">Имя*:</label><br>
+        <input id="name" type="text" required /><br>
+        <label for="phone" style="color: #fff;">Телефон:</label><br>
+        <input id="phone" type="text" /><br>
+        <label for="email" style="color: #fff;">Email*:</label><br>
+        <input id="email" type="email" required /><br><br>
+        <button type="submit">Готово</button>
+    </form>
+</div>
+>
+
+
+<!-- футер -->		
     <footer>
-     <a href="https://белаякоробка.рф/" target="_blank"><h5>Whitecube</h5></a> <br> <h6><span id="current-date"></span></h6>
+     <a href="https://белаякоробка.рф/" target="_blank"><h6> Whitecube </a> // <span id="current-date"></span></h6>
     </footer>
 
     <script src="js/script.js"></script>
