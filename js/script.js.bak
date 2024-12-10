@@ -85,7 +85,7 @@ document.getElementById("spin-button").addEventListener("click", () => {
 document.getElementById("current-date").textContent = new Date().toLocaleDateString();
 
 // Настройка вращения рулетки
-const spinSpeed = 0.35; // Скорость вращения (пикселей за кадр)
+const spinSpeed = 1; // Скорость вращения (пикселей за кадр)
 let offset = 0; // Начальный оффсет для автоспина
 let autoSpinId; // Идентификатор анимации автоспина
 

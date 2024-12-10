@@ -76,7 +76,7 @@ body {
 
         #roulette-container {
             position: relative;
-            width: 1200px; /* Полная ширина экрана */
+            width: 100%; /* Полная ширина экрана */
             max-width: 1200px; /* Ограничение максимальной ширины */
             height: 300px;
             overflow: hidden;
