@@ -35,11 +35,6 @@ body {
             100% { background-position: 0% 50%; }
         }
 
-.dela-gothic-one-regular {
-  font-family: "Dela Gothic One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
 /* Стиль хейдера */
         header {
@@ -73,14 +68,17 @@ body {
                 background-position: -500px -500px; /* Регулируйте значение для настройки направления */
             }
         }
-
+		
+/* Настройка ячейки рулетки */
         #roulette-container {
             position: relative;
             width: 1200px; /* Полная ширина экрана */
             max-width: 1200px; /* Ограничение максимальной ширины */
             height: 300px;
             overflow: hidden;
-            margin: 20px auto; /* Центровка по горизонтали */
+			align-items: center; /* Центрируем по вертикали */
+            margin: 50px auto; /* Центровка по горизонтали */
+			box-sizing: border-box; /* Учитываем границы и отступы */
         }
 
         svg {
@@ -89,6 +87,7 @@ body {
             left: 0;
         }
 
+/* Настройка указателя рулетки */
         .pointer {
             position: absolute;
             top: 50%;

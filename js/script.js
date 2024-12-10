@@ -14,6 +14,14 @@ const prizes = [
     "img/prise_08.png"
 ];
 
+// Шансы на выпадение (настраивается)
+const prizeWeights = [10, 20, 5, 15, 10, 5, 25, 10]; // Вес для каждого приза
+
+// Список распределённых карточек
+const distributedPrizes = [];
+
+
+
 // Сообщения для каждого приза
 function getPrizeMessage(index) {
     const rootStyles = getComputedStyle(document.documentElement);
@@ -46,11 +54,22 @@ for (let i = 0; i < prizes.length * 3; i++) {
 }
 
 function calculateWinner() {
-    return Math.floor(Math.random() * prizes.length);
+    const totalWeight = prizeWeights.reduce((sum, weight) => sum + weight, 0);
+    const randomValue = Math.random() * totalWeight;
+
+    let cumulativeWeight = 0;
+    for (let i = 0; i < prizeWeights.length; i++) {
+        cumulativeWeight += prizeWeights[i];
+        if (randomValue <= cumulativeWeight) {
+            return i;
+        }
+    }
 }
 
+const spinDuration = 6; // Время прокрутки рулетки в секундах (настройка для кастомизации)
+
 function spinRoulette() {
-    cancelAnimationFrame(autoSpinId); // Остановить автоспин
+    stopAutoSpin(); // Останавливаем автоспин
 
     const winnerIndex = calculateWinner();
 
@@ -60,19 +79,22 @@ function spinRoulette() {
     const offsetFromCenter = (containerWidth / 2) - (prizeWidth / 2);
     const translateX = winnerPosition - offsetFromCenter;
 
-    svg.style.transition = "transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)";
+    svg.style.transition = `transform ${spinDuration}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     svg.style.transform = `translateX(-${translateX}px)`;
 
     setTimeout(() => {
         prizeElements.forEach(el => el.classList.remove('highlight'));
 
-        const winningElement = prizeElements[(prizes.length + winnerIndex) % prizes.length];
-        winningElement.classList.add('highlight');
+        const winningElementIndex = (prizes.length + winnerIndex) % distributedPrizes.length;
+        const prizeIndex = distributedPrizes[winningElementIndex]; // Получаем индекс из распределения
 
-        const message = getPrizeMessage(winnerIndex);
+        prizeElements[winningElementIndex].classList.add('highlight');
+
+        const message = getPrizeMessage(prizeIndex); // Используем правильный индекс для сообщения
         alert(message); // Отобразить сообщение
-    }, 4000);
+    }, spinDuration * 1000); // Ожидание завершения анимации
 }
+
 
 document.getElementById("spin-button").addEventListener("click", () => {
     svg.style.transition = "none";
@@ -104,4 +126,22 @@ document.addEventListener('DOMContentLoaded', () => {
 // Функция для остановки автоспина перед запуском пользовательского вращения
 function stopAutoSpin() {
     cancelAnimationFrame(autoSpinId); // Останавливаем автоспин
+}
+
+// Бесконечный ряд призов
+for (let i = 0; i < prizes.length * 3; i++) {
+    const prizeIndex = calculateWinner(); // Рандомный индекс с учётом весов
+    distributedPrizes.push(prizeIndex); // Сохраняем индекс
+
+    const image = document.createElementNS(svgNS, "image");
+    image.setAttribute("href", prizes[prizeIndex]);
+    image.setAttribute("x", i * prizeWidth);
+    image.setAttribute("y", 0);
+    image.setAttribute("width", prizeWidth);
+    image.setAttribute("height", containerHeight);
+
+    const group = document.createElementNS(svgNS, "g");
+    group.appendChild(image);
+    svg.appendChild(group);
+    prizeElements.push(group);
 }
