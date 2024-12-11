@@ -54,6 +54,7 @@ header h1 {
 }
 
 svg {
+	will-change: transform;
     position: absolute;
     top: 0;
     left: 0;

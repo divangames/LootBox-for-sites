@@ -153,10 +153,12 @@ document.getElementById("spin-button").addEventListener("click", () => {
 // Установка текущей даты в подвале
 document.getElementById("current-date").textContent = new Date().toLocaleDateString();
 
+// Автопрокрутка проверка при старте
+document.addEventListener('DOMContentLoaded', function () {
+    autoSpin();
+});
 
-
-
-
+// Поп-апы
 document.getElementById('popup-form').addEventListener('submit', function (event) {
     event.preventDefault(); // Предотвращаем отправку формы
 
