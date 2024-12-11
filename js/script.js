@@ -150,6 +150,65 @@ document.getElementById("spin-button").addEventListener("click", () => {
     setTimeout(spinRoulette, 100);
 });
 
+/* Защита от повторного нажатия*/
+const spinButton = document.getElementById('spin-button');
+
+// Проверка состояния из localStorage
+if (localStorage.getItem('spinUsed') === 'true') {
+    disableButton();
+}
+
+// Обработчик нажатия
+spinButton.addEventListener('click', function () {
+    if (localStorage.getItem('spinUsed') === 'true') {
+        return; // Если кнопка уже была использована, ничего не делаем
+    }
+
+    // Установка блокировки
+    localStorage.setItem('spinUsed', 'true');
+
+    // Отключаем кнопку
+    disableButton();
+
+    // Логика запуска рулетки
+    startSpinner();
+
+    // Отправка данных на сервер
+    sendUsageToServer();
+});
+
+// Логика отключения кнопки
+function disableButton() {
+    spinButton.disabled = true;
+    spinButton.textContent = 'СПИНЕР ИСПОЛЬЗОВАН';
+    spinButton.classList.add('button-disabled');
+}
+
+// Логика запуска рулетки
+function startSpinner() {
+    console.log('Запуск рулетки...');
+    // Ваша логика работы спиннера
+}
+
+// Отправка данных на сервер
+function sendUsageToServer() {
+    fetch('/spin-used', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: '12345', spinUsed: true }), // Здесь данные о пользователе
+    }).then(response => {
+        if (response.ok) {
+            console.log('Статус использования отправлен на сервер');
+        } else {
+            console.error('Ошибка отправки на сервер');
+        }
+    }).catch(error => {
+        console.error('Ошибка сети:', error);
+    });
+}
+
 // Установка текущей даты в подвале
 document.getElementById("current-date").textContent = new Date().toLocaleDateString();
 

@@ -19,19 +19,18 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Стиль хейдера */
+/* Хейдер */
 header {
     width: 100%;
-    opacity: 70%;
-    background-color: #151a23;
+    background-color: rgba(21, 26, 35, 0.8);
     color: white;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 header img {
-    height: 50px;
-    vertical-align: middle;
+    height: 60px;
 }
 
 header h1 {
@@ -47,10 +46,13 @@ header h1 {
     width: 1200px;
     max-width: 1200px;
     height: 300px;
-    overflow: hidden;
-    align-items: center;
     margin: 50px auto;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 svg {
@@ -66,11 +68,10 @@ svg {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 23.5px;
+    width: 23px;
     height: 400px;
     z-index: 10;
-    filter: drop-shadow(0 0 5px red);
-    overflow: visible;
+    filter: drop-shadow(0 0 10px red);
 }
 
 /* Стили для кнопки */
@@ -114,6 +115,28 @@ button:hover {
     background-color: #33cc66; /* Зеленый ховер*/
 }
 
+/* Отключённая кнопка */
+button:disabled,
+button.button-disabled {
+    background-color: #555555;
+    color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    border: none;
+	
+}
+
+/* Отключение эффекта для отключённой кнопки */
+button:disabled::before,
+button.button-disabled::before {
+    animation: none;
+    display: none; /* Скрываем полностью */
+}
+
+button.button-disabled:hover {
+    background-color: #555555;
+}
+
 /* Стили для footer */
 footer {
     width: 100%;
@@ -144,7 +167,6 @@ footer a:hover {
     text-align: center;
 	margin-padding: 60px:
 }
-
 
 /* Модальное окно выигрыша*/
 .hidden {

@@ -1,72 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Горизонтальная рулетка</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
- <!-- Подключение шрифта Montserrat с Google Fonts -->
+    <title>Лутбокс от ХАСЛ.РФ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/messages.css">
-	<link rel="stylesheet" href="css/explosion.css">
-	<link rel="stylesheet" href="css/snow.css">
-	<!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/messages.css">
+    <link rel="stylesheet" href="css/explosion.css">
+    <link rel="stylesheet" href="css/snow.css">
 </head>
 <body>
+    <!-- Шапка сайта -->
     <header>
-        <a href="https://хасл.рф" target="_blank"> <img src="img/logo.svg" alt="Logo"></a>
+        <a href="https://хасл.рф" target="_blank" aria-label="Перейти на сайт Хасл.рф">
+            <img src="img/logo.svg" alt="Логотип Хасл.рф">
+        </a>
     </header>
-	
-<!-- Заголовок -->	
-	<h2 style="color: #fff;"><b>ЛУТБОКС ОТ ХАСЛ.РФ</b></h2>
-<!-- Заголовок -->	
-			
-<!-- Указатель -->				
-    <div id="roulette-container">
-    <img class="pointer" src="img/arrow2.svg" alt="Pointer">
-    </div>
-<!-- Указатель -->	
-	
-<!-- Снег -->	
-	<div id="snow-container"></div>
-<!-- Снег -->	
 
-<!-- Кнопка -->	
-	<button id="spin-button">КРУТИТЬ СПИННЕР</button>
-    <div id="win-message"></div>
-    <div id="snow-container"></div>
-<!-- Кнопка -->	
+    <!-- Основной контент -->
+    <main>
+        <!-- Заголовок -->
+        <h2 class="title" style="color: #fff;">Лутбокс от ХАСЛ.РФ</h2>
 
+        <!-- Контейнер для рулетки -->
+        <section id="roulette-container" aria-label="Рулетка">
+            <img class="pointer" src="img/arrow2.svg" alt="Указатель рулетки">
+        </section>
 
-<!-- Поп-апп -->	
-<div id="popup" class="hidden">
-    <h1 style="color: #fff;">О-хо-хо! Ты выбил:</h1>
-    <img id="prize-image" alt="Выигранный приз" />
-    <p id="win-message"></p>
-    <form id="popup-form">
-	<p style="color: #fff;">Осталось всего пару шагов, чтобы отдать тебе твой подарок</P>
-        <label for="name" style="color: #fff;">Имя*:</label><br>
-        <input id="name" type="text" required /><br>
-        <label for="phone" style="color: #fff;">Телефон:</label><br>
-        <input id="phone" type="text" /><br>
-        <label for="email" style="color: #fff;">Email*:</label><br>
-        <input id="email" type="email" required /><br><br>
-        <button type="submit">Готово</button>
-    </form>
-</div>
->
+        <!-- Снег -->
+        <div id="snow-container" aria-hidden="true"></div>
 
+        <!-- Кнопка -->
+        <section class="controls">
+           <center> <button id="spin-button" aria-label="Крутить рулетку">КРУТИТЬ СПИННЕР</button> </center>
+        </section>
 
-<!-- футер -->		
+        <!-- Сообщение о выигрыше -->
+        <div id="win-message" class="hidden" role="alert"></div>
+
+        <!-- Попап -->
+        <div id="popup" class="hidden" role="dialog" aria-labelledby="popup-title" aria-hidden="true">
+            <h1 id="popup-title" style="color: #fff;">О-хо-хо! Ты выбил:</h1>
+            <img id="prize-image" alt="Выигранный приз" />
+            <p id="win-message"></p>
+            <form id="popup-form">
+                <p style="color: #fff;">Осталось всего пару шагов, чтобы отдать тебе твой подарок:</p>
+                <label for="name" style="color: #fff;">Имя*:</label><br>
+                <input id="name" type="text" required /><br>
+                <label for="phone" style="color: #fff;">Телефон:</label><br>
+                <input id="phone" type="text" /><br>
+                <label for="email" style="color: #fff;">Email*:</label><br>
+                <input id="email" type="email" required /><br><br>
+                <button type="submit">Готово</button>
+            </form>
+            <button id="popup-close" aria-label="Закрыть попап">Закрыть</button>
+        </div>
+    </main>
+
+    <!-- Подвал -->
     <footer>
-     <a href="https://белаякоробка.рф/" target="_blank"><h6> Whitecube </a> // <span id="current-date"></span></h6>
+        <a href="https://белаякоробка.рф/" target="_blank" aria-label="Перейти на сайт Whitecube">
+            Whitecube
+        </a> // <span id="current-date"></span>
     </footer>
 
+    <!-- Скрипты -->
     <script src="js/script.js"></script>
-	<script src="js/snow.js"></script>
+    <script src="js/snow.js"></script>
 </body>
 </html>
-
-
-
