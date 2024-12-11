@@ -1,7 +1,5 @@
 # Рулетка с призами
-
-![image](https://github.com/user-attachments/assets/a4635118-7794-442f-9eaa-3949ecbcfdc4)
-
+![image](https://github.com/user-attachments/assets/ca0cb19d-b0bc-463d-8a63-0f08b17b2d68)
 
 ## Описание проекта
 
