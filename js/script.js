@@ -150,64 +150,60 @@ document.getElementById("spin-button").addEventListener("click", () => {
     setTimeout(spinRoulette, 100);
 });
 
-/* Защита от повторного нажатия*/
-const spinButton = document.getElementById('spin-button');
+// ВРЕМЕННЫАЯ КНОПКА СБРОСА ЗАЩИТЫ
 
-// Проверка состояния из localStorage
-if (localStorage.getItem('spinUsed') === 'true') {
-    disableButton();
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const spinButton = document.getElementById('spin-button');
+    const resetButton = document.getElementById('reset-button');
+    const winMessage = document.getElementById('win-message');
 
-// Обработчик нажатия
-spinButton.addEventListener('click', function () {
-    if (localStorage.getItem('spinUsed') === 'true') {
-        return; // Если кнопка уже была использована, ничего не делаем
+    // Проверяем статус защиты из локального хранилища
+    const isSpinDisabled = localStorage.getItem('spinDisabled') === 'true';
+
+    if (isSpinDisabled) {
+        spinButton.disabled = true;
+        spinButton.textContent = 'НЕДОСТУПНО';
+        spinButton.style.backgroundColor = '#555'; // Устанавливаем неактивный стиль
+        spinButton.style.cursor = 'not-allowed';
+        resetButton.classList.remove('hidden'); // Показываем кнопку сброса
     }
 
-    // Установка блокировки
-    localStorage.setItem('spinUsed', 'true');
+    // Обработчик нажатия на кнопку "КРУТИТЬ СПИННЕР"
+    spinButton.addEventListener('click', () => {
+        spinButton.disabled = true;
+        spinButton.textContent = 'НЕДОСТУПНО';
+        spinButton.style.backgroundColor = '#555';
+        spinButton.style.cursor = 'not-allowed';
 
-    // Отключаем кнопку
-    disableButton();
+        // Показываем сообщение о выигрыше
+        winMessage.textContent = 'Поздравляем, вы выиграли!';
+        winMessage.style.color = '#fff';
 
-    // Логика запуска рулетки
-    startSpinner();
+        // Сохраняем состояние в локальное хранилище
+        localStorage.setItem('spinDisabled', 'true');
 
-    // Отправка данных на сервер
-    sendUsageToServer();
-});
-
-// Логика отключения кнопки
-function disableButton() {
-    spinButton.disabled = true;
-    spinButton.textContent = 'СПИНЕР ИСПОЛЬЗОВАН';
-    spinButton.classList.add('button-disabled');
-}
-
-// Логика запуска рулетки
-function startSpinner() {
-    console.log('Запуск рулетки...');
-    // Ваша логика работы спиннера
-}
-
-// Отправка данных на сервер
-function sendUsageToServer() {
-    fetch('/spin-used', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: '12345', spinUsed: true }), // Здесь данные о пользователе
-    }).then(response => {
-        if (response.ok) {
-            console.log('Статус использования отправлен на сервер');
-        } else {
-            console.error('Ошибка отправки на сервер');
-        }
-    }).catch(error => {
-        console.error('Ошибка сети:', error);
+        // Показываем кнопку сброса
+        resetButton.classList.remove('hidden');
     });
-}
+
+    // Обработчик нажатия на кнопку "СБРОСИТЬ ЗАЩИТУ"
+    resetButton.addEventListener('click', () => {
+        // Сбрасываем состояние в локальном хранилище
+        localStorage.removeItem('spinDisabled');
+
+        // Снимаем блокировку с кнопки "КРУТИТЬ СПИННЕР"
+        spinButton.disabled = false;
+        spinButton.textContent = 'КРУТИТЬ СПИННЕР';
+        spinButton.style.backgroundColor = '#ff4c4c';
+        spinButton.style.cursor = 'pointer';
+
+        // Скрываем кнопку сброса
+        resetButton.classList.add('hidden');
+
+        // Очищаем сообщение о выигрыше
+        winMessage.textContent = '';
+    });
+});
 
 // Установка текущей даты в подвале
 document.getElementById("current-date").textContent = new Date().toLocaleDateString();
@@ -257,3 +253,7 @@ document.getElementById('popup-close').addEventListener('click', function () {
         popup.classList.add('hidden');
     }
 });
+
+
+
+
